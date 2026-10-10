@@ -1608,6 +1608,9 @@ async def admin_actions(event):
         except ValueError: await conv.send_message(f"{P_NO} Cancelled.")
         except Exception as e: await conv.send_message(f"{P_NO} Error: {e}")
 
+MENU_LABELS = {"🛒 Buy Account", "👤 My Profile", "📁 Buy Sessions", "🎁 Refer & Earn",
+               "💰 Deposit", "📊 My Stats", "📞 Support", "🔐 Admin Panel"}
+
 # ================= CORE EVENT ROUTERS =================
 @bot.on(events.NewMessage(pattern=r"(?i)^/start"))
 async def handle_start(e):
@@ -1686,10 +1689,12 @@ async def handle_all_messages(e):
         text = e.text or ""
         if not text: return
 
-        if "Buy Account" in text or "Buy Sessions" in text or "Deposit" in text or "My Profile" in text or "My Stats" in text or "Support" in text or "Admin Panel" in text:
+        if "Buy Account" in text or "Buy Sessions" in text or "Deposit" in text or "My Profile" in text or "My Stats" in text or "Support" in text or "Admin Panel" in text or "Refer & Earn" in text:
             session_buy_state.pop(uid, None)
             deposit_input.pop(uid, None)
-            admin_dep_state.pop(uid, None)
+            waiting_proof.pop(uid, None)
+            if text.strip() in MENU_LABELS:
+                admin_dep_state.pop(uid, None)
 
         if is_admin(uid) and uid in admin_dep_state:
             st = admin_dep_state[uid]
@@ -1962,7 +1967,7 @@ async def handle_callback_query(e):
             dep_id, t_uid = p[1], int(p[2])
             row = cur.execute("SELECT status FROM deposits WHERE id=?", (dep_id,)).fetchone()
             if not row or row[0] != 'pending': return await e.edit(f"{P_WARN} Already processed.")
-            admin_dep_state[uid] = {'target_uid': t_uid, 'dep_id': dep_id, 'step': 'wait_reason', 'msg_id': e.message.id}
+            admin_dep_state[uid] = {'target_uid': t_uid, 'dep_id': dep_id, 'step': 'wait_reason', 'msg_id': e.message_id}
             await bot.send_message(uid, f"{P_WARN} Reply to this message with the REASON for rejecting user <code>{t_uid}</code>:")
             try: await e.answer("Check your bot PMs to enter the reason.", alert=True)
             except: pass
