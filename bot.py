@@ -1681,12 +1681,12 @@ async def handle_all_messages(e):
             
             try:
                 if e.photo: await bot.send_message(LOG_CHANNEL_ID, cap, file=e.media, buttons=btns)
-                else: await bot.send_message(LOG_CHANNEL_ID, cap + f"\n🔗 Hash: {html.escape(e.text)}", buttons=btns)
+                else: await bot.send_message(LOG_CHANNEL_ID, cap + f"\n🔗 Hash: {html.escape(e.raw_text)}", buttons=btns)
             except Exception as log_err:
                 logger.error(f"Failed to log deposit: {log_err}")
             return
 
-        text = e.text or ""
+        text = e.raw_text or ""   # raw_text: parse_mode=html me e.text '&' ko '&amp;' bana deta hai
         if not text: return
 
         if "Buy Account" in text or "Buy Sessions" in text or "Deposit" in text or "My Profile" in text or "My Stats" in text or "Support" in text or "Admin Panel" in text or "Refer & Earn" in text:
