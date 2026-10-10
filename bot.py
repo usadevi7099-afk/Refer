@@ -58,7 +58,7 @@ def env_list(name, default_csv):
 
 API_ID = env_int("API_ID",38983053)
 API_HASH = os.getenv("API_HASH","6fa92a5633ee4d935746e5210c738da0")
-BOT_TOKEN = os.getenv("BOT_TOKEN", "8646295511:AAF_TYrqltODCRYADCnxg3HRUKs5Alz5bOQ")
+BOT_TOKEN = os.getenv("BOT_TOKEN", "8604146843:AAFSOSCoa3UOqBP1GP0hJRfdkFIeXDPK-zs")
 ADMIN_ID = env_int("ADMIN_ID", 8752870238)
 
 # CHANNELS
