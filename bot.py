@@ -64,8 +64,8 @@ ADMIN_ID = env_int("ADMIN_ID", 8752870238)
 # CHANNELS
 LOG_CHANNEL_ID = env_int("LOG_CHANNEL_ID", -1004312562319)
 LOOG_CHANNEL_ID = env_int("LOOG_CHANNEL_ID", -1002494998679)
-CHECK_CHANNELS = env_list("CHECK_CHANNELS", "-1004398128411 , -1004492362174 , -1004300644735 ")
-JOIN_URLS = env_list("JOIN_URLS", "https://t.me/Vinnu_channel_2 , https://t.me/vaanigiveaway , https://t.me/+nZsieboQ8Hg4OGY1")
+CHECK_CHANNELS = env_list("CHECK_CHANNELS", " ")
+JOIN_URLS = env_list("JOIN_URLS", " ")
 
 # LINKS & MEDIA
 TERMS_URL = os.getenv("TERMS_URL", "keen-bubblegum-6a3770.netlify.app")
